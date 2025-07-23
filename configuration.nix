@@ -4,15 +4,12 @@
   imports = [
     # include NixOS-WSL modules
     # <nixos-wsl/modules>
-  ];
+		./system/autostart-systemd.nix
+		./wsl.nix
+  ];	
 
   # https://nix-community.github.io/NixOS-WSL/options.html
-	wsl = {
-		enable = true;
-		defaultUser = "anna";
-		wslConf.user.default = "anna";
-		startMenuLaunchers = true;
-	};
+
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
   users = 
 	 {
@@ -47,10 +44,15 @@
 					];
 				packages = with pkgs; [
 					zsh
+					nemo
 				];
 			};
 		};
 		};
+			services.xserver.desktopManager.cinnamon.enable = true;
+	# networking.resolvconf.enable = true;
+	# https://nix-community.github.io/NixOS-WSL/options.html 
+
 			programs.zsh.enable = true;
 	environment.systemPackages = with pkgs; [
 		vim # text editor, worse

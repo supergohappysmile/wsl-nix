@@ -36,13 +36,13 @@
       myPkgs = forAllSystems (system:
         import inputs.nixpkgs {
           inherit system;
-          config.allowUnfree = false;
+          config.allowUnfree = true;
         }
       );
       myPkgsUnstable = forAllSystems (system:
         import inputs.nixpkgs-unstable {
           inherit system;
-          config.allowUnfree = false;
+          config.allowUnfree = true;
         }
       );
       # vimjoyer iso nonsense https://www.youtube.com/watch?v=-G8mN6HJSZE&
