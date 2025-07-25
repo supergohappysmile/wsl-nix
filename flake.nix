@@ -62,18 +62,18 @@
           };
 
           modules =  [
+            ./wsl.nix
             nixos-wsl.nixosModules.default
-            {
-              system.stateVersion = "24.11";
-              wsl.enable = true;
-            }
+           {
+             system.stateVersion = "24.11";
+             wsl.enable = true;
+           }
             ({ pkgs, lib, fetchFromGitHub, home-manager,... }: { 
               swapDevices = lib.mkForce [ ];
               environment.variables.NIXOS_FLAKE_CONFIGURATION = "wsl";
                   
 
             })
-            ./configuration.nix
             home-manager.nixosModules.home-manager
             ({ lib, pkgs, ... }: {
 		          home-manager.backupFileExtension = "_backup_option_in_flake_btw";
@@ -99,6 +99,41 @@
           ];
         };
 
+
+        "xvda" = nixpkgs.lib.nixosSystem { # slightly modifying stuff for qemu/kvm vms
+          system = "x86_64-linux";
+          pkgs = myPkgs.x86_64-linux;
+          specialArgs = {
+            pkgs-unstable = myPkgsUnstable.x86_64-linux;
+          };
+
+          modules =  [
+            ./xvda.nix # xenlight vms
+            
+            home-manager.nixosModules.home-manager
+            ({ lib, pkgs, ... }: {
+		          home-manager.backupFileExtension = "_backup_option_in_flake_btw";
+              home-manager.extraSpecialArgs = { 
+                  inherit inputs; 
+                  
+                  pkgs-unstable = myPkgsUnstable.x86_64-linux;
+              }; # Pass flake input to home-manager
+
+              home-manager.users = {
+                anna = {
+                  home.homeDirectory = lib.mkForce "/home/anna";
+                  imports = [ ./home-manager/anna/anna.nix ];
+                  home.stateVersion="24.11";
+                };
+                nixos = {
+                  home.homeDirectory = lib.mkForce "/home/nixos";
+                  imports = [ ./home-manager/nixos/nixos.nix ];
+                  home.stateVersion="24.11";
+                };
+              };
+            })
+          ];
+        };
       };
     };
 }

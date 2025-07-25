@@ -1,4 +1,7 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./configuration.nix
+  ];
 	wsl = {
 		enable = true;
 		defaultUser = "anna";
