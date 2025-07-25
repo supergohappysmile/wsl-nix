@@ -5,6 +5,7 @@
     # include NixOS-WSL modules
     # <nixos-wsl/modules> # this stuff is in the flake now
 		./system/autostart-systemd.nix
+		./programs/direnv.nix
   ];	
 
   # https://nix-community.github.io/NixOS-WSL/options.html

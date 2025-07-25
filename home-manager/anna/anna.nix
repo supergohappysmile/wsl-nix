@@ -6,6 +6,7 @@
 		./ssh.nix
 		./git.nix
 		./firefox.nix
+		./annaShell.nix
 	];
 			nixpkgs.config.allowUnfree=true;
 
@@ -19,6 +20,7 @@
 };
 	home.packages = with pkgs; [
 		gnupg # gpg
+		direnv
 	];
 	home.sessionVariables = {
 	};

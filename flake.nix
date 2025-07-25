@@ -112,6 +112,7 @@
             
             home-manager.nixosModules.home-manager
             ({ lib, pkgs, ... }: {
+              environment.variables.NIXOS_FLAKE_CONFIGURATION = "xvda";
 		          home-manager.backupFileExtension = "_backup_option_in_flake_btw";
               home-manager.extraSpecialArgs = { 
                   inherit inputs; 

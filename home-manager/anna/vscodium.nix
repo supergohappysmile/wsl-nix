@@ -116,6 +116,7 @@ in
 			ms-vscode-remote.remote-containers
 			ms-azuretools.vscode-docker
 			ms-python.python
+			ms-python.debugpy # https://code.visualstudio.com/docs/python/debugging
 			mkhl.direnv
 			shd101wyy.markdown-preview-enhanced
 			ms-toolsai.jupyter
